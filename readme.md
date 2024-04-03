@@ -1,0 +1,1 @@
+Neovim config for AstroNvim.
