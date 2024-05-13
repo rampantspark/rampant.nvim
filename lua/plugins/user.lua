@@ -1,8 +1,24 @@
 ---@type LazySpec
 return {
   {
+    {
+      "kndndrj/nvim-dbee",
+      dependencies = {
+        "MunifTanjim/nui.nvim",
+      },
+      build = function()
+        -- Install tries to automatically detect the install method.
+        -- if it fails, try calling it with one of these parameters:
+        --    "curl", "wget", "bitsadmin", "go"
+        require("dbee").install()
+      end,
+      config = function()
+        require("dbee").setup( --[[optional config]])
+      end,
+    },
+
     "epwalsh/obsidian.nvim",
-    version = "*",  -- recommended, use latest release instead of latest commit
+    version = "*", -- recommended, use latest release instead of latest commit
     lazy = true,
     ft = "markdown",
     dependencies = {
@@ -80,12 +96,12 @@ return {
     -- 2. "vsplit" - to open in a vertical split if there's not already a vertical split
     -- 3. "hsplit" - to open in a horizontal split if there's not already a horizontal split
     open_notes_in = "current",
-    
+
     -- Optional, configure additional syntax highlighting / extmarks.
     -- This requires you have `conceallevel` set to 1 or 2. See `:help conceallevel` for more details.
     ui = {
-      enable = true,  -- set to false to disable all additional syntax features
-      update_debounce = 200,  -- update delay after a text change (in milliseconds)
+      enable = true,         -- set to false to disable all additional syntax features
+      update_debounce = 200, -- update delay after a text change (in milliseconds)
       -- Define how various check-boxes are displayed
       checkboxes = {
         -- NOTE: the 'char' value has to be a single character, and the highlight groups are defined below.
@@ -127,7 +143,7 @@ return {
       -- The default folder to place images in via `:ObsidianPasteImg`.
       -- If this is a relative path it will be interpreted as relative to the vault root.
       -- You can always override this per image by passing a full path to the command instead of just a filename.
-      img_folder = "assets/imgs",  -- This is the default
+      img_folder = "assets/imgs", -- This is the default
       -- A function that determines the text to insert in the note when pasting an image.
       -- It takes two arguments, the `obsidian.Client` and an `obsidian.Path` to the image file.
       -- This is the default implementation.
@@ -176,7 +192,7 @@ return {
         " | | | (_| | | | | | | |_) | (_| | | | | |_\\__ \\ |_) | (_| | |  |   < ",
         " |_|  \\__,_|_| |_| |_| .__/ \\__,_|_| |_|\\__|___/ .__/ \\__,_|_|  |_|\\_\\",
         "                     | |                       | |                    ",
-        "                     |_|                       |_|                    ",  
+        "                     |_|                       |_|                    ",
       }
       return opts
     end,
@@ -189,13 +205,13 @@ return {
   {
     "L3MON4D3/LuaSnip",
     config = function(plugin, opts)
-      require "astronvim.plugins.configs.luasnip"(plugin, opts) -- include the default astronvim config that calls the setup call
+      require "astronvim.plugins.configs.luasnip" (plugin, opts) -- include the default astronvim config that calls the setup call
       -- add more custom luasnip configuration such as filetype extend or custom snippets
       local luasnip = require "luasnip"
       luasnip.filetype_extend("javascript", { "javascriptreact" })
     end,
   },
-  
+
   -- {
   --   "nvim-neo-tree/neo-tree.nvim",
   --     branch = "v3.x",
@@ -204,7 +220,7 @@ return {
   --       "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
   --       "MunifTanjim/nui.nvim",
   --       -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
-  --     }, 
+  --     },
   -- },
 
   {
@@ -220,7 +236,7 @@ return {
   {
     "windwp/nvim-autopairs",
     config = function(plugin, opts)
-      require "astronvim.plugins.configs.nvim-autopairs"(plugin, opts) -- include the default astronvim config that calls the setup call
+      require "astronvim.plugins.configs.nvim-autopairs" (plugin, opts) -- include the default astronvim config that calls the setup call
       -- add more custom autopairs configuration such as custom rules
       local npairs = require "nvim-autopairs"
       local Rule = require "nvim-autopairs.rule"
@@ -228,18 +244,18 @@ return {
       npairs.add_rules(
         {
           Rule("$", "$", { "tex", "latex" })
-            -- don't add a pair if the next character is %
-            :with_pair(cond.not_after_regex "%%")
-            -- don't add a pair if  the previous character is xxx
-            :with_pair(
-              cond.not_before_regex("xxx", 3)
-            )
-            -- don't move right when repeat character
-            :with_move(cond.none())
-            -- don't delete if the next character is xx
-            :with_del(cond.not_after_regex "xx")
-            -- disable adding a newline when you press <cr>
-            :with_cr(cond.none()),
+          -- don't add a pair if the next character is %
+              :with_pair(cond.not_after_regex "%%")
+          -- don't add a pair if  the previous character is xxx
+              :with_pair(
+                cond.not_before_regex("xxx", 3)
+              )
+          -- don't move right when repeat character
+              :with_move(cond.none())
+          -- don't delete if the next character is xx
+              :with_del(cond.not_after_regex "xx")
+          -- disable adding a newline when you press <cr>
+              :with_cr(cond.none()),
         },
         -- disable for .vim files, but it work for another filetypes
         Rule("a", "a", "-vim")
