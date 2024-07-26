@@ -1,22 +1,5 @@
----@type LazySpec
 return {
   {
-    {
-      "kndndrj/nvim-dbee",
-      dependencies = {
-        "MunifTanjim/nui.nvim",
-      },
-      build = function()
-        -- Install tries to automatically detect the install method.
-        -- if it fails, try calling it with one of these parameters:
-        --    "curl", "wget", "bitsadmin", "go"
-        require("dbee").install()
-      end,
-      config = function()
-        require("dbee").setup( --[[optional config]])
-      end,
-    },
-
     "epwalsh/obsidian.nvim",
     version = "*", -- recommended, use latest release instead of latest commit
     lazy = true,
@@ -131,7 +114,7 @@ return {
         ObsidianRightArrow = { bold = true, fg = "#f78c6c" },
         ObsidianTilde = { bold = true, fg = "#ff5370" },
         ObsidianBullet = { bold = true, fg = "#89ddff" },
-        ObsidianRefText = { underline = true, fg = "#c792ea" },
+        ObsidianRefText = { underline = true, fg = "#c805ea" },
         ObsidianExtLinkIcon = { fg = "#c792ea" },
         ObsidianTag = { italic = true, fg = "#89ddff" },
         ObsidianBlockID = { italic = true, fg = "#89ddff" },
@@ -155,111 +138,7 @@ return {
         return string.format("![%s](%s)", path.name, path)
       end,
     },
-  },
+  }
 
-  {
-    "eandrju/cellular-automaton.nvim",
-    event = "BufRead",
-    -- opts = {
-    --   mapping = {
-    --     n = {
-    --       ["<leader>fml"] = { "<cmd>CellularAutomaton make_it_rain<cr>", desc = "FML :(" },
-    --       -- add game_of_life mapping here
-    --     },
-    --   },
-    -- },
-  },
-
-  "andweeb/presence.nvim",
-  {
-    "ray-x/lsp_signature.nvim",
-    event = "BufRead",
-    config = function() require("lsp_signature").setup() end,
-  },
-
-  -- == Examples of Overriding Plugins ==
-
-  -- customize alpha options
-  {
-    "goolord/alpha-nvim",
-    opts = function(_, opts)
-      -- customize the dashboard header
-      opts.section.header.val = {
-        "                                        _                        _    ",
-        "                                       | |                      | |   ",
-        "  _ __ __ _ _ __ ___  _ __   __ _ _ __ | |_ ___ _ __   __ _ _ __| | __",
-        " | '__/ _` | '_ ` _ \\| '_ \\ / _` | '_ \\| __/ __| '_ \\ / _` | '__| |/ /",
-        " | | | (_| | | | | | | |_) | (_| | | | | |_\\__ \\ |_) | (_| | |  |   < ",
-        " |_|  \\__,_|_| |_| |_| .__/ \\__,_|_| |_|\\__|___/ .__/ \\__,_|_|  |_|\\_\\",
-        "                     | |                       | |                    ",
-        "                     |_|                       |_|                    ",
-      }
-      return opts
-    end,
-  },
-
-  -- You can disable default plugins as follows:
-  { "max397574/better-escape.nvim", enabled = false },
-
-  -- You can also easily customize additional setup of plugins that is outside of the plugin's setup call
-  {
-    "L3MON4D3/LuaSnip",
-    config = function(plugin, opts)
-      require "astronvim.plugins.configs.luasnip" (plugin, opts) -- include the default astronvim config that calls the setup call
-      -- add more custom luasnip configuration such as filetype extend or custom snippets
-      local luasnip = require "luasnip"
-      luasnip.filetype_extend("javascript", { "javascriptreact" })
-    end,
-  },
-
-  -- {
-  --   "nvim-neo-tree/neo-tree.nvim",
-  --     branch = "v3.x",
-  --     dependencies = {
-  --       "nvim-lua/plenary.nvim",
-  --       "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
-  --       "MunifTanjim/nui.nvim",
-  --       -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
-  --     },
-  -- },
-
-  {
-    "miversen33/netman.nvim",
-    -- require("neo-tree").setup({
-    --     sources = {
-    --         "filesystem", -- Neotree filesystem source
-    --         "netman.ui.neo-tree", -- The one you really care about 😉
-    --     }
-    -- })
-  },
-
-  {
-    "windwp/nvim-autopairs",
-    config = function(plugin, opts)
-      require "astronvim.plugins.configs.nvim-autopairs" (plugin, opts) -- include the default astronvim config that calls the setup call
-      -- add more custom autopairs configuration such as custom rules
-      local npairs = require "nvim-autopairs"
-      local Rule = require "nvim-autopairs.rule"
-      local cond = require "nvim-autopairs.conds"
-      npairs.add_rules(
-        {
-          Rule("$", "$", { "tex", "latex" })
-          -- don't add a pair if the next character is %
-              :with_pair(cond.not_after_regex "%%")
-          -- don't add a pair if  the previous character is xxx
-              :with_pair(
-                cond.not_before_regex("xxx", 3)
-              )
-          -- don't move right when repeat character
-              :with_move(cond.none())
-          -- don't delete if the next character is xx
-              :with_del(cond.not_after_regex "xx")
-          -- disable adding a newline when you press <cr>
-              :with_cr(cond.none()),
-        },
-        -- disable for .vim files, but it work for another filetypes
-        Rule("a", "a", "-vim")
-      )
-    end,
-  },
 }
+
