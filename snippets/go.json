@@ -1,0 +1,368 @@
+{
+  "v := value": {
+    "prefix": ":",
+    "body": ["${1} := ${0}"]
+  },
+  "fn := func() { ... }": {
+    "prefix": "anon",
+    "body": ["${1:fn} := func() {", "\t${2:${VISUAL}}", "}", "${0}"]
+  },
+  "append(slice, value)": {
+    "prefix": "ap",
+    "body": ["append(${1:slice}, ${0:value})"]
+  },
+  "a = append(a, value)": {
+    "prefix": "ap=",
+    "body": ["${1:slice} = append($1, ${0:value})"]
+  },
+  "break": {
+    "prefix": "br",
+    "body": ["break"]
+  },
+  "chan Type": {
+    "prefix": "ch",
+    "body": ["chan ${0:int}"]
+  },
+  "case ...:": {
+    "prefix": "case",
+    "body": ["case ${1:value}:", "\t${0:${VISUAL}}"]
+  },
+  "const XXX Type = ...": {
+    "prefix": "con",
+    "body": ["const ${1:NAME} ${2:Type} = ${0:0}"]
+  },
+  "const ( ... )": {
+    "prefix": "cons",
+    "body": ["const (", "\t${1:NAME} ${2:Type} = ${3:value}", "\t${0}", ")"]
+  },
+  "const ( ... = iota )": {
+    "prefix": "iota",
+    "body": ["const (", "\t${1:NAME} ${2:Type} = iota", "\t${0}", ")"]
+  },
+  "continue": {
+    "prefix": "cn",
+    "body": ["continue"]
+  },
+  "default: ...": {
+    "prefix": "default",
+    "body": ["default:", "\t${0:${VISUAL}}"]
+  },
+  "defer someFunction()": {
+    "prefix": "df",
+    "body": ["defer ${1:func}(${2})", "${0}"]
+  },
+  "defer func() { ... }": {
+    "prefix": "def",
+    "body": ["defer func() {", "\t${0:${VISUAL}}", "}()"]
+  },
+  "defer func() { ... } with recover": {
+    "prefix": "defr",
+    "body": [
+      "defer func() {",
+      "\tif err := recover(); err != nil {",
+      "\t\t${0:${VISUAL}}",
+      "\t}",
+      "}()"
+    ]
+  },
+  "GPL License Header": {
+    "prefix": "gpl",
+    "body": [
+      "/*",
+      "* This program is free software; you can redistribute it and/or modify",
+      "* it under the terms of the GNU General Public License as published by",
+      "* the Free Software Foundation; either version 2 of the License, or",
+      "* (at your option) any later version.",
+      "*",
+      "* This program is distributed in the hope that it will be useful,",
+      "* but WITHOUT ANY WARRANTY; without even the implied warranty of",
+      "* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the",
+      "* GNU General Public License for more details.",
+      "*",
+      "* You should have received a copy of the GNU General Public License",
+      "* along with this program; if not, see <http://www.gnu.org/licenses/>.",
+      "*",
+      "* Copyright (C) ${1:Author}, !v strftime(\"%Y\")",
+      "*/",
+      "${0}"
+    ]
+  },
+  "import ( ... )": {
+    "prefix": "import",
+    "body": ["import (", "\t\"${1:package}\"", ")"]
+  },
+  "interface I { ... }": {
+    "prefix": "interface",
+    "body": [
+      "type ${1:Interface} interface {",
+      "\t${2:/* TODO: add methods */}",
+      "}"
+    ]
+  },
+  "if ... { ... }": {
+    "prefix": "if",
+    "body": ["if ${1:condition} {", "\t${0:${VISUAL}}", "}"]
+  },
+  "else { ... }": {
+    "prefix": "else",
+    "body": ["else {", "\t${0:${VISUAL}}", "}"]
+  },
+  "If with inline error": {
+    "prefix": "ife",
+    "body": ["if err := ${1:condition}; err != nil {", "\t${0:${VISUAL}}", "}"]
+  },
+  "errors.Wrap": {
+    "prefix": "ew",
+    "body": ["errors.Wrap(${1:err}, \"${2:message}\")"]
+  },
+  "errors.Wrapf": {
+    "prefix": "ewf",
+    "body": ["errors.Wrapf(${1:err}, \"${2:message %v}\", ${3:args...})"]
+  },
+  "Error return": {
+    "prefix": "errn",
+    "body": ["if err != nil {", "\treturn err", "}", "${0}"]
+  },
+  "Factorial function": {
+    "prefix": "factorial",
+    "body": [
+      "func Factorial(n int) int {",
+      "\tif n <= 1 {",
+      "\t\treturn 1",
+      "\t}",
+      "\treturn n * Factorial(n-1)",
+      "}"
+    ]
+  },
+  "Fibonacci function": {
+    "prefix": "fibonacci",
+    "body": [
+      "func Fibonacci(n int) int {",
+      "\tif n <= 1 {",
+      "\t\treturn n",
+      "\t}",
+      "\treturn Fibonacci(n-1) + Fibonacci(n-2)",
+      "}"
+    ]
+  },
+  "Quadratic equation solver": {
+    "prefix": "quadratic",
+    "body": [
+      "func Quadratic(a, b, c float64) (float64, float64) {",
+      "\td := b*b - 4*a*c",
+      "\tif d < 0 {",
+      "\t\treturn 0, 0 // No real roots",
+      "\t}",
+      "\tx1 := (-b + math.Sqrt(d)) / (2 * a)",
+      "\tx2 := (-b - math.Sqrt(d)) / (2 * a)",
+      "\treturn x1, x2",
+      "}"
+    ]
+  },
+  "Linear equation solver": {
+    "prefix": "linear",
+    "body": ["func Linear(a, b float64) float64 {", "\treturn -b / a", "}"]
+  },
+  "Circle area calculator": {
+    "prefix": "circleArea",
+    "body": [
+      "func CircleArea(radius float64) float64 {",
+      "\treturn math.Pi * radius * radius",
+      "}"
+    ]
+  },
+  "Circle circumference calculator": {
+    "prefix": "circleCircumference",
+    "body": [
+      "func CircleCircumference(radius float64) float64 {",
+      "\treturn 2 * math.Pi * radius",
+      "}"
+    ]
+  },
+  "Rectangle area calculator": {
+    "prefix": "rectangleArea",
+    "body": [
+      "func RectangleArea(width, height float64) float64 {",
+      "\treturn width * height",
+      "}"
+    ]
+  },
+  "Rectangle perimeter calculator": {
+    "prefix": "rectanglePerimeter",
+    "body": [
+      "func RectanglePerimeter(width, height float64) float64 {",
+      "\treturn 2 * (width + height)",
+      "}"
+    ]
+  },
+  "Triangle area calculator": {
+    "prefix": "triangleArea",
+    "body": [
+      "func TriangleArea(base, height float64) float64 {",
+      "\treturn 0.5 * base * height",
+      "}"
+    ]
+  },
+  "Mean calculator": {
+    "prefix": "mean",
+    "body": [
+      "func Mean(numbers []float64) float64 {",
+      "\tsum := 0.0",
+      "\tfor _, num := range numbers {",
+      "\t\tsum += num",
+      "\t}",
+      "\treturn sum / float64(len(numbers))",
+      "}"
+    ]
+  },
+  "Median calculator": {
+    "prefix": "median",
+    "body": [
+      "func Median(numbers []float64) float64 {",
+      "\tsort.Float64s(numbers)",
+      "\tm := len(numbers) / 2",
+      "\tif len(numbers)%2 == 0 {",
+      "\t\treturn (numbers[m-1] + numbers[m]) / 2",
+      "\t}",
+      "\treturn numbers[m]",
+      "}"
+    ]
+  },
+  "Mode calculator": {
+    "prefix": "mode",
+    "body": [
+      "func Mode(numbers []float64) []float64 {",
+      "\tfreq := make(map[float64]int)",
+      "\tmaxCount := 0",
+      "\tfor _, num := range numbers {",
+      "\t\tfreq[num]++",
+      "\t\tif freq[num] > maxCount {",
+      "\t\t\tmaxCount = freq[num]",
+      "\t\t}",
+      "\t}",
+      "\tvar modes []float64",
+      "\tfor num, count := range freq {",
+      "\t\tif count == maxCount {",
+      "\t\t\tmodes = append(modes, num)",
+      "\t\t}",
+      "\t}",
+      "\treturn modes",
+      "}"
+    ]
+  },
+  "Standard deviation calculator": {
+    "prefix": "standardDeviation",
+    "body": [
+      "func StandardDeviation(numbers []float64) float64 {",
+      "\tmean := Mean(numbers)",
+      "\tsumSquares := 0.0",
+      "\tfor _, num := range numbers {",
+      "\t\tsumSquares += (num - mean) * (num - mean)",
+      "\t}",
+      "\treturn math.Sqrt(sumSquares / float64(len(numbers)))",
+      "}"
+    ]
+  },
+  "Rotation Matrix 2D": {
+    "prefix": "rotationMatrix2D",
+    "body": [
+      "func RotationMatrix2D(theta float64) [2][2]float64 {",
+      "\treturn [2][2]float64{",
+      "\t\t{math.Cos(theta), -math.Sin(theta)},",
+      "\t\t{math.Sin(theta), math.Cos(theta)},",
+      "\t}",
+      "}"
+    ],
+    "description": "Generate a 2D rotation matrix for a given angle theta in radians"
+  },
+  "Rotation Matrix 3D": {
+    "prefix": "rotationMatrix3D",
+    "body": [
+      "func RotationMatrix3D(axis [3]float64, theta float64) [3][3]float64 {",
+      "\tnorm := math.Sqrt(axis[0]*axis[0] + axis[1]*axis[1] + axis[2]*axis[2])",
+      "\tux, uy, uz := axis[0] / norm, axis[1] / norm, axis[2] / norm",
+      "\tc := math.Cos(theta)",
+      "\ts := math.Sin(theta)",
+      "\tm := 1 - c",
+      "\treturn [3][3]float64{",
+      "\t\t{c + ux*ux*m, ux*uy*m - uz*s, ux*uz*m + uy*s},",
+      "\t\t{uy*ux*m + uz*s, c + uy*uy*m, uy*uz*m - ux*s},",
+      "\t\t{uz*ux*m - uy*s, uz*uy*m + ux*s, c + uz*uz*m},",
+      "\t}",
+      "}"
+    ],
+    "description": "Generate a 3D rotation matrix for a given axis and angle theta in radians"
+  },
+  "Dot Product": {
+    "prefix": "dotProduct",
+    "body": [
+      "func DotProduct(a, b []float64) float64 {",
+      "\tsum := 0.0",
+      "\tfor i := range a {",
+      "\t\tsum += a[i] * b[i]",
+      "\t}",
+      "\treturn sum",
+      "}"
+    ],
+    "description": "Calculate the dot product of two vectors"
+  },
+  "Matrix Multiplication": {
+    "prefix": "matrixMultiplication",
+    "body": [
+      "func MatrixMultiplication(a, b [][]float64) [][]float64 {",
+      "\trowsA := len(a)",
+      "\tcolsA := len(a[0])",
+      "\tcolsB := len(b[0])",
+      "\tresult := make([][]float64, rowsA)",
+      "\tfor i := range result {",
+      "\t\tresult[i] = make([]float64, colsB)",
+      "\t\tfor j := 0; j < colsB; j++ {",
+      "\t\t\tfor k := 0; k < colsA; k++ {",
+      "\t\t\t\tresult[i][j] += a[i][k] * b[k][j]",
+      "\t\t\t}",
+      "\t\t}",
+      "\t}",
+      "\treturn result",
+      "}"
+    ],
+    "description": "Multiply two matrices"
+  },
+  "Matrix Transpose": {
+    "prefix": "matrixTranspose",
+    "body": [
+      "func MatrixTranspose(matrix [][]float64) [][]float64 {",
+      "\trows := len(matrix)",
+      "\tcols := len(matrix[0])",
+      "\ttransposed := make([][]float64, cols)",
+      "\tfor i := range transposed {",
+      "\t\ttransposed[i] = make([]float64, rows)",
+      "\t\tfor j := 0; j < rows; j++ {",
+      "\t\t\ttransposed[i][j] = matrix[j][i]",
+      "\t\t}",
+      "\t}",
+      "\treturn transposed",
+      "}"
+    ],
+    "description": "Transpose a matrix"
+  },
+  "Matrix Determinant 2x2": {
+    "prefix": "matrixDeterminant2x2",
+    "body": [
+      "func MatrixDeterminant2x2(matrix [2][2]float64) float64 {",
+      "\treturn matrix[0][0]*matrix[1][1] - matrix[0][1]*matrix[1][0]",
+      "}"
+    ],
+    "description": "Calculate the determinant of a 2x2 matrix"
+  },
+  "Matrix Determinant 3x3": {
+    "prefix": "matrixDeterminant3x3",
+    "body": [
+      "func MatrixDeterminant3x3(matrix [3][3]float64) float64 {",
+      "\treturn matrix[0][0]*(matrix[1][1]*matrix[2][2] - matrix[1][2]*matrix[2][1]) -",
+      "\t\tmatrix[0][1]*(matrix[1][0]*matrix[2][2] - matrix[1][2]*matrix[2][0]) +",
+      "\t\tmatrix[0][2]*(matrix[1][0]*matrix[2][1] - matrix[1][1]*matrix[2][0])",
+      "}"
+    ],
+    "description": "Calculate the determinant of a 3x3 matrix"
+  }
+}
