@@ -35,10 +35,10 @@ return {
   {
     "natecraddock/workspaces.nvim",
     config = function()
-      require("workspaces").setup {
+      require("workspaces").setup({
         -- path to a file to store workspaces data in
         -- on a unix system this would be ~/.local/share/nvim/workspaces
-        path = vim.fn.stdpath "data" .. "/workspaces",
+        path = vim.fn.stdpath("data") .. "/workspaces",
 
         -- to change directory for nvim (:cd), or only for window (:lcd)
         -- deprecated, use cd_type instead
@@ -78,7 +78,7 @@ return {
           open_pre = {},
           open = { "Telescope find_files" },
         },
-      }
+      })
       vim.api.nvim_set_keymap(
         "n",
         "<leader>Wa",
@@ -104,10 +104,10 @@ return {
         { noremap = true, silent = true, desc = "Open workspaces" }
       )
 
-      local wk = require "which-key"
-      wk.add {
+      local wk = require("which-key")
+      wk.add({
         { "<leader>W", group = "Workspaces" },
-      }
+      })
     end,
   },
 
@@ -127,7 +127,12 @@ return {
       -- Your DBUI configuration
       vim.g.db_ui_use_nerd_fonts = 1
 
-      vim.api.nvim_set_keymap("n", "<leader>Xo", ":DBUI<CR>", { noremap = true, silent = true, desc = "Open DBUI" })
+      vim.api.nvim_set_keymap(
+        "n",
+        "<leader>Xo",
+        ":DBUI<CR>",
+        { noremap = true, silent = true, desc = "Open DBUI" }
+      )
       vim.api.nvim_set_keymap(
         "n",
         "<leader>Xt",
@@ -147,10 +152,10 @@ return {
         { noremap = true, silent = true, desc = "Find a DBUI buffer" }
       )
 
-      local wk = require "which-key"
-      wk.add {
+      local wk = require("which-key")
+      wk.add({
         { "<leader>X", group = "Dadbod UI" },
-      }
+      })
     end,
   },
 
@@ -174,10 +179,10 @@ return {
       "nvim-lua/plenary.nvim",
       "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
       "MunifTanjim/nui.nvim",
-      "3rd/image.nvim",              -- Optional image support in preview window: See `# Preview Mode` for more information
+      "3rd/image.nvim",           -- Optional image support in preview window: See `# Preview Mode` for more information
     },
     config = function()
-      require("neo-tree").setup {
+      require("neo-tree").setup({
         close_if_last_window = true,
         window = {
           position = "right",
@@ -187,7 +192,7 @@ return {
           "netman.ui.neo-tree",
           -- { source = "netman.ui.neo-tree", display_name = " Remote "},
         },
-      }
+      })
     end,
   },
   {
@@ -270,10 +275,10 @@ return {
         { noremap = true, silent = true, desc = "Download schema of GraphQL server" }
       )
 
-      local wk = require "which-key"
-      wk.add {
+      local wk = require("which-key")
+      wk.add({
         { "<leader>k", group = "Kulala" },
-      }
+      })
     end,
   },
 
@@ -294,10 +299,10 @@ return {
         "<cmd>CellularAutomaton game_of_life<CR>",
         { noremap = true, silent = true, desc = "Game of life" }
       )
-      local wk = require "which-key"
-      wk.add {
+      local wk = require("which-key")
+      wk.add({
         { "<leader>*", group = "Cellular Automaton" },
-      }
+      })
     end,
   },
   {
@@ -314,7 +319,7 @@ return {
       workspaces = {
         {
           name = "rampantspark",
-          path = "/home/rampantspark/Vaults/rampantspark",
+          path = "/home/rampantspark/Documents/rampantspark",
         },
       },
     },
@@ -333,7 +338,9 @@ return {
   {
     "ray-x/lsp_signature.nvim",
     event = "BufRead",
-    config = function() require("lsp_signature").setup() end,
+    config = function()
+      require("lsp_signature").setup()
+    end,
   },
   -- == Examples of Overriding Plugins ==
 
@@ -365,7 +372,7 @@ return {
     dependencies = { "rafamadriz/friendly-snippets" },
     run = "make install_jsregexp",
     config = function(plugin, opts)
-      require "astronvim.plugins.configs.luasnip" (plugin, opts) -- include the default astronvim config that calls the setup call
+      require("astronvim.plugins.configs.luasnip")(plugin, opts) -- include the default astronvim config that calls the setup call
       require("luasnip.loaders.from_vscode").lazy_load({ paths = "~/.config/nvim/snippets" })
     end,
   },
@@ -373,16 +380,16 @@ return {
   {
     "windwp/nvim-autopairs",
     config = function(plugin, opts)
-      require "astronvim.plugins.configs.nvim-autopairs" (plugin, opts) -- include the default astronvim config that calls the setup call
+      require("astronvim.plugins.configs.nvim-autopairs")(plugin, opts) -- include the default astronvim config that calls the setup call
       -- add more custom autopairs configuration such as custom rules
-      local npairs = require "nvim-autopairs"
-      local Rule = require "nvim-autopairs.rule"
-      local cond = require "nvim-autopairs.conds"
+      local npairs = require("nvim-autopairs")
+      local Rule = require("nvim-autopairs.rule")
+      local cond = require("nvim-autopairs.conds")
       npairs.add_rules(
         {
           Rule("$", "$", { "tex", "latex" })
           -- don't add a pair if the next character is %
-              :with_pair(cond.not_after_regex "%%")
+              :with_pair(cond.not_after_regex("%%"))
           -- don't add a pair if  the previous character is xxx
               :with_pair(
                 cond.not_before_regex("xxx", 3)
@@ -390,7 +397,7 @@ return {
           -- don't move right when repeat character
               :with_move(cond.none())
           -- don't delete if the next character is xx
-              :with_del(cond.not_after_regex "xx")
+              :with_del(cond.not_after_regex("xx"))
           -- disable adding a newline when you press <cr>
               :with_cr(cond.none()),
         },
