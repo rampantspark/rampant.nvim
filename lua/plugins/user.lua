@@ -319,7 +319,7 @@ return {
       workspaces = {
         {
           name = "rampantspark",
-          path = "/home/rampantspark/Documents/rampantspark",
+          path = "/home/rampantspark/Documents/Vaults/rampantspark",
         },
       },
     },
