@@ -364,5 +364,111 @@
       "}"
     ],
     "description": "Calculate the determinant of a 3x3 matrix"
+  },
+  "DB Connect": {
+    "prefix": "dbConnect",
+    "body": [
+      "func DBConnect(driverName, dataSourceName string) (*sql.DB, error) {",
+      "\treturn sql.Open(driverName, dataSourceName)",
+      "}"
+    ],
+    "description": "Establish a connection to a SQL database."
+  },
+  "Execute Query": {
+    "prefix": "executeQuery",
+    "body": [
+      "func ExecuteQuery(db *sql.DB, query string, args ...interface{}) (*sql.Rows, error) {",
+      "\treturn db.Query(query, args...)",
+      "}"
+    ],
+    "description": "Execute a SQL query and return the result rows."
+  },
+  "Execute NonQuery": {
+    "prefix": "executeNonQuery",
+    "body": [
+      "func ExecuteNonQuery(db *sql.DB, query string, args ...interface{}) (sql.Result, error) {",
+      "\treturn db.Exec(query, args...)",
+      "}"
+    ],
+    "description": "Execute a SQL command that does not return rows (e.g., INSERT, UPDATE, DELETE)."
+  },
+  "Fetch One": {
+    "prefix": "fetchOne",
+    "body": [
+      "func FetchOne(db *sql.DB, query string, args ...interface{}) (*sql.Row, error) {",
+      "\treturn db.QueryRow(query, args...), nil",
+      "}"
+    ],
+    "description": "Fetch a single row from the database."
+  },
+  "Scan Row": {
+    "prefix": "scanRow",
+    "body": [
+      "func ScanRow(row *sql.Row, dest ...interface{}) error {",
+      "\treturn row.Scan(dest...)",
+      "}"
+    ],
+    "description": "Scan the result of a single row into the provided destination variables."
+  },
+  "Fetch All": {
+    "prefix": "fetchAll",
+    "body": [
+      "func FetchAll(db *sql.DB, query string, args ...interface{}) ([]map[string]interface{}, error) {",
+      "\trows, err := db.Query(query, args...)",
+      "\tif err != nil {",
+      "\t\treturn nil, err",
+      "\t}",
+      "\tdefer rows.Close()",
+      "\tcolumns, err := rows.Columns()",
+      "\tif err != nil {",
+      "\t\treturn nil, err",
+      "\t}",
+      "\tvar results []map[string]interface{}",
+      "\tfor rows.Next() {",
+      "\t\tcolumnsData := make([]interface{}, len(columns))",
+      "\t\tcolumnPointers := make([]interface{}, len(columns))",
+      "\t\tfor i := range columnsData {",
+      "\t\t\tcolumnPointers[i] = &columnsData[i]",
+      "\t\t}",
+      "\t\tif err := rows.Scan(columnPointers...); err != nil {",
+      "\t\t\treturn nil, err",
+      "\t\t}",
+      "\t\tresult := make(map[string]interface{})",
+      "\t\tfor i, colName := range columns {",
+      "\t\t\tresult[colName] = columnsData[i]",
+      "\t\t}",
+      "\t\tresults = append(results, result)",
+      "\t}",
+      "\treturn results, rows.Err()",
+      "}"
+    ],
+    "description": "Fetch all rows from a query and return as a slice of maps."
+  },
+  "Transaction Begin": {
+    "prefix": "transactionBegin",
+    "body": [
+      "func TransactionBegin(db *sql.DB) (*sql.Tx, error) {",
+      "\treturn db.Begin()",
+      "}"
+    ],
+    "description": "Begin a new database transaction."
+  },
+  "Transaction Commit": {
+    "prefix": "transactionCommit",
+    "body": [
+      "func TransactionCommit(tx *sql.Tx) error {",
+      "\treturn tx.Commit()",
+      "}"
+    ],
+    "description": "Commit a database transaction."
+  },
+  "Transaction Rollback": {
+    "prefix": "transactionRollback",
+    "body": [
+      "func TransactionRollback(tx *sql.Tx) error {",
+      "\treturn tx.Rollback()",
+      "}"
+    ],
+    "description": "Rollback a database transaction."
   }
 }

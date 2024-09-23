@@ -7,6 +7,24 @@
           "go"
         ],
         "path": "./go.json"
+      },
+      {
+        "language": [
+          "python"
+        ],
+        "path": "./python.json"
+      },
+      {
+        "language": [
+          "sh"
+        ],
+        "path": "./bash.json"
+      },
+      {
+        "language": [
+          "PowerShell"
+        ],
+        "path": "./powershell.json"
       }
     ]
   }
