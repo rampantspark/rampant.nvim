@@ -58,5 +58,8 @@ return {
   end,
   config = function(...)
     require("astronvim.plugins.configs.notify")(...)
+    require("notify").setup({
+      background_colour = "#000000",
+    })
   end,
 }
